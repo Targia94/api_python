@@ -2,4 +2,4 @@ fastapi
 uvicorn
 mangum
 pydantic
-starlette
+sqlalchemy
