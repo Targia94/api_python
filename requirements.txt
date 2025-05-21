@@ -2,4 +2,5 @@ fastapi
 uvicorn
 mangum
 pydantic
-sqlalchemy
+python-dotenv
+starlette
