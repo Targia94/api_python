@@ -43,6 +43,11 @@ async def get_openapi():
     return app.openapi()
 
 
+@app.get("/")
+def root():
+    return {"message": "Hello from FastAPI on Vercel!"}
+
+
 app.include_router(api_router
                    , dependencies=[Depends(get_api_key)]
                    )
