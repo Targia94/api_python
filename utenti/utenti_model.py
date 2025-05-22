@@ -28,7 +28,7 @@ def get_all_utenti():
 
     except Exception as e:
         print(f"Errore durante la query utenti: {e}")
-        return [], True
+        return []
 
     finally:
         session.close()

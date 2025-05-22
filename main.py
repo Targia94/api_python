@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security.api_key import APIKeyHeader
 from fastapi.openapi.docs import get_swagger_ui_html
-import libraries.libraries as lib
 from api.router import api_router
 from starlette.middleware.cors import CORSMiddleware
 from config import config
@@ -43,15 +42,10 @@ async def get_openapi():
     return app.openapi()
 
 
-@app.get("/")
-def root():
-    return {"message": "Hello from FastAPI on Vercel!"}
-
-
 app.include_router(api_router
                    , dependencies=[Depends(get_api_key)]
                    )
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
