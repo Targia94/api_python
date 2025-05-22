@@ -19,12 +19,11 @@ jobs:
       run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login 192.168.200.20 --username ${{ secrets.HARBOR_USERNAME }} --password-stdin
 
 
-    - name: Build & Push to Harbor
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: 192.168.200.20/api_python/backend:latest
+    - name: Build & Push image to Harbor
+      run: |
+        docker build -t 192.168.200.20/api_python/backend:latest .
+        docker push 192.168.200.20/api_python/backend:latest
+    
 
     - name: Deploy via SSH to VM
       uses: appleboy/ssh-action@v1.0.0
