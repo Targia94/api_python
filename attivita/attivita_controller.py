@@ -21,6 +21,13 @@ def importa_db(response: Response,):
 
 @router.post("/get_attivita/")
 @router.post("/get_attivita", include_in_schema=False)
-def utenti(attivita: attivita_dto.AttivitaQuery,):
+def get_attivita(attivita: attivita_dto.AttivitaQuery,):
 
     return attivita_service.get_attivita(attivita)
+
+
+@router.post("/inserisci_attivita/")
+@router.post("/inserisci_attivita", include_in_schema=False)
+def inserisci_attivita(attivita: attivita_dto.InsertAttivita,):
+
+    return attivita_service.inserisci_attivita(attivita)

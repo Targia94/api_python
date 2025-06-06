@@ -1,6 +1,7 @@
 from db.database import OrmConnector
 from fastapi import HTTPException
 from .attivita_dto import AttivitaQuery
+from .attivita_dto import InsertAttivita
 from sqlalchemy.exc import SQLAlchemyError
 from schema.schema_db import Attivita
 import sqlite3
@@ -69,3 +70,35 @@ def importa_db():
     sqlite_conn.close()
     session.close()
     print("Dati trasferiti con successo!")
+
+
+def inserisci_attivita(attivita: InsertAttivita):
+    engine = OrmConnector.get_engine('DATABASE')
+    session = OrmConnector.get_session(engine)
+
+    try:
+        # Creazione di un nuovo oggetto Attivita usando i dati di InsertAttivita
+        new_attivita = Attivita(
+            data=attivita.data,
+            cliente=attivita.cliente,
+            contratto=attivita.contratto,
+            saldato=attivita.saldato,
+            commessa=attivita.commessa,
+            saldo=attivita.saldo,
+            extra_consegna=attivita.extra_consegna or 0  # Default a 0 se non fornito
+        )
+
+        # Aggiungi l'oggetto alla sessione
+        session.add(new_attivita)
+        session.commit()  # Fai il commit per salvare nel database
+
+        print("Attività inserita con successo!")
+        return {"success": True, "message": "Attività inserita con successo!"}
+
+    except Exception as e:
+        print(f"Errore: {e}")
+        session.rollback()  # Rollback in caso di errore
+        return {"success": False, "error": f"Errore durante l'inserimento: {str(e)}"}
+
+    finally:
+        session.close()  # Chiudi la sessione
