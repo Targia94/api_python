@@ -5,6 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from pydantic import BaseModel
 from typing import Optional
 from schema.schema_db import Attivita
+from schema.schema_db import Utente
 
 Base = declarative_base()
 
