@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, status, HTTPException
-from . import attivita_services
-from . import attivita_model
+from . import attivita_service
+from . import attivita_dto
 
 
 router = APIRouter()
@@ -12,15 +12,15 @@ router = APIRouter()
 #
 #     return attivita_services.get_all_utenti()
 
-@router.get("/test_2/")
-@router.get("/test_2", include_in_schema=False)
-def test_2(response: Response,):
+@router.get("/importa_db/")
+@router.get("/importa_db", include_in_schema=False)
+def importa_db(response: Response,):
 
-    return attivita_services.get_all_utenti()
+    return attivita_service.importa_db()
 
 
 @router.post("/get_attivita/")
 @router.post("/get_attivita", include_in_schema=False)
-def utenti(attivita: attivita_model.AttivitaQuery,):
+def utenti(attivita: attivita_dto.AttivitaQuery,):
 
-    return attivita_services.get_attivita(attivita)
+    return attivita_service.get_attivita(attivita)
