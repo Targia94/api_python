@@ -43,7 +43,7 @@ async def get_openapi():
 
 
 app.include_router(api_router
-                   , dependencies=[Depends(get_api_key)]
+                   # , dependencies=[Depends(get_api_key)]
                    )
 
 # if __name__ == "__main__":
